@@ -1,0 +1,15 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Optional: Uncomment if you want to ignore large media files
+# images/*.jpg
+# images/*.png
+# music/*.mp3

@@ -1,0 +1,1629 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #d4af37;
+    --secondary-color: #8b7355;
+    --text-dark: #2c2c2c;
+    --text-light: #666;
+    --bg-light: #faf9f7;
+    --white: #ffffff;
+    --accent: #c9a961;
+
+    /* Font families - will be overridden by config.js */
+    --font-decorative: 'Great Vibes', cursive;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans-serif: 'Raleway', sans-serif;
+    --font-arabic: 'Amiri', 'Traditional Arabic', serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans-serif);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--bg-light);
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hero Section */
+.hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(45, 106, 79, 0.8) 0%, rgba(64, 145, 108, 0.6) 100%);
+    background-image: url('images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(27, 67, 50, 0.4) 0%, rgba(45, 106, 79, 0.6) 100%);
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: var(--white);
+    padding: 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.couple-names {
+    font-family: var(--font-decorative);
+    font-size: 6rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    line-height: 1.2;
+}
+
+.wedding-date {
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 2.5rem;
+}
+
+.scroll-indicator {
+    position: relative;
+    text-align: center;
+    color: var(--white);
+    z-index: 5;
+    margin-top: 0;
+}
+
+.scroll-indicator span {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.arrow-down {
+    width: 30px;
+    height: 30px;
+    border-left: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    transform: rotate(-45deg);
+    animation: bounce 2s infinite;
+    margin: 0 auto;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(-45deg); }
+    40% { transform: translateY(-10px) rotate(-45deg); }
+    60% { transform: translateY(-5px) rotate(-45deg); }
+}
+
+/* Fade In Animations */
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+.fade-in-delay {
+    animation: fadeIn 1s ease-in 0.5s both;
+}
+
+.fade-in-delay-2 {
+    animation: fadeIn 1s ease-in 1s both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Main content wrapper for overlapping effect */
+.invitation,
+.quran-verse,
+.event-details,
+.countdown,
+.gallery,
+.rsvp,
+.footer {
+    position: relative;
+    z-index: 10;
+}
+
+/* Add spacer for hero section */
+.invitation {
+    margin-top: 100vh;
+}
+
+/* Section Styles */
+section {
+    padding: 100px 0;
+    background: var(--white);
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-dark);
+    position: relative;
+    font-weight: 700;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    margin: 25px auto;
+    border-radius: 2px;
+}
+
+/* Invitation Section */
+.invitation {
+    background: var(--white);
+    text-align: center;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.invitation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        /* Batik-inspired pattern - Javanese floral motifs */
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><g opacity="0.08"><circle cx="100" cy="100" r="4" fill="%232d6a4f"/><path d="M100,85 Q95,90 100,95 Q105,90 100,85 M100,105 Q95,110 100,115 Q105,110 100,105 M85,100 Q90,95 95,100 Q90,105 85,100 M105,100 Q110,95 115,100 Q110,105 105,100" fill="%232d6a4f"/><circle cx="50" cy="50" r="3" fill="%232d6a4f"/><circle cx="150" cy="50" r="3" fill="%232d6a4f"/><circle cx="50" cy="150" r="3" fill="%232d6a4f"/><circle cx="150" cy="150" r="3" fill="%232d6a4f"/></g></svg>');
+    background-size: 120px 120px;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.invitation > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.ornament {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 30px;
+    /* Interlocked wedding rings with decorative elements */
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="goldGrad"><stop offset="0%25" stop-color="%23ffd700"/><stop offset="50%25" stop-color="%23d4af37"/><stop offset="100%25" stop-color="%23b8860b"/></radialGradient></defs><g opacity="0.95"><circle cx="35" cy="50" r="20" fill="none" stroke="url(%23goldGrad)" stroke-width="3.5"/><circle cx="35" cy="50" r="15" fill="none" stroke="%23d4af37" stroke-width="1.5" opacity="0.6"/><circle cx="65" cy="50" r="20" fill="none" stroke="url(%23goldGrad)" stroke-width="3.5"/><circle cx="65" cy="50" r="15" fill="none" stroke="%23d4af37" stroke-width="1.5" opacity="0.6"/><ellipse cx="35" cy="32" rx="6" ry="9" fill="%23ffd700"/><path d="M29,32 L41,32 L41,36 L29,36 Z" fill="%23d4af37"/><circle cx="35" cy="28" r="3" fill="%23fff" opacity="0.8"/><ellipse cx="65" cy="32" rx="6" ry="9" fill="%23ffd700"/><path d="M59,32 L71,32 L71,36 L59,36 Z" fill="%23d4af37"/><circle cx="65" cy="28" r="3" fill="%23fff" opacity="0.8"/><path d="M20,50 Q15,45 15,38 L20,38" fill="none" stroke="%23d4af37" stroke-width="1" opacity="0.4"/><path d="M80,50 Q85,45 85,38 L80,38" fill="none" stroke="%23d4af37" stroke-width="1" opacity="0.4"/><circle cx="27" cy="50" r="2" fill="%23ffd700" opacity="0.6"/><circle cx="43" cy="50" r="2" fill="%23ffd700" opacity="0.6"/><circle cx="57" cy="50" r="2" fill="%23ffd700" opacity="0.6"/><circle cx="73" cy="50" r="2" fill="%23ffd700" opacity="0.6"/></g></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.invitation-text {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto 60px;
+    line-height: 2;
+    font-weight: 300;
+}
+
+.couple-photos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+    margin: 60px 0;
+}
+
+.photo-card {
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover {
+    transform: translateY(-10px);
+}
+
+.photo-frame {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid var(--primary-color);
+    margin: 0 auto 25px;
+    box-shadow: 0 15px 40px rgba(45, 106, 79, 0.2);
+    position: relative;
+}
+
+.photo-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.couple-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-card h3 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.photo-card p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.heart-divider {
+    font-size: 4rem;
+    color: var(--primary-color);
+    font-family: var(--font-decorative);
+    margin: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+/* Quran Verse Section */
+.quran-verse {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: var(--white);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.quran-verse::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Islamic geometric pattern - Arabesque motif */
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g opacity="0.15"><circle cx="50" cy="50" r="20" fill="none" stroke="%23ffffff" stroke-width="1.5"/><circle cx="50" cy="50" r="15" fill="none" stroke="%23ffffff" stroke-width="1"/><path d="M50,30 L55,40 L50,50 L45,40 Z" fill="%23ffffff"/><path d="M70,50 L60,55 L50,50 L60,45 Z" fill="%23ffffff"/><path d="M50,70 L45,60 L50,50 L55,60 Z" fill="%23ffffff"/><path d="M30,50 L40,45 L50,50 L40,55 Z" fill="%23ffffff"/><circle cx="50" cy="50" r="5" fill="%23ffffff"/></g></svg>');
+    background-size: 120px 120px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.verse-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 50px 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.verse-icon {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.verse-arabic {
+    font-size: 1.8rem;
+    line-height: 2.5;
+    margin-bottom: 30px;
+    font-weight: 400;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    direction: rtl;
+    font-family: var(--font-arabic);
+}
+
+.verse-translation {
+    font-size: 1.2rem;
+    line-height: 2;
+    margin-bottom: 25px;
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0.95;
+}
+
+.verse-reference {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-top: 20px;
+}
+
+/* Event Details Section */
+.event-details {
+    background: var(--bg-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.event-details::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        /* Kawung pattern - traditional Javanese circular motif */
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g opacity="0.15"><ellipse cx="50" cy="25" rx="10" ry="15" fill="%23ffffff"/><ellipse cx="50" cy="75" rx="10" ry="15" fill="%23ffffff"/><ellipse cx="25" cy="50" rx="15" ry="10" fill="%23ffffff"/><ellipse cx="75" cy="50" rx="15" ry="10" fill="%23ffffff"/><circle cx="50" cy="50" r="8" fill="none" stroke="%23ffffff" stroke-width="2"/></g></svg>');
+    background-size: 150px 150px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.event-details > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.event-card {
+    background: var(--white);
+    padding: 50px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(45, 106, 79, 0.15);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.event-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(45, 106, 79, 0.25);
+    border-color: var(--primary-color);
+}
+
+.event-icon {
+    font-size: 4rem;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-icon-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* SVG Event Icon Styling */
+.event-icon svg {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 4px 8px rgba(45, 106, 79, 0.2));
+}
+
+.event-card h3 {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.event-time {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.event-location {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+.event-address {
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.map-container {
+    text-align: center;
+}
+
+/* Countdown Section */
+.countdown {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent));
+    color: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Clock/Time pattern - Circular motifs representing time */
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g opacity="0.15"><circle cx="50" cy="50" r="25" fill="none" stroke="%23ffffff" stroke-width="2"/><circle cx="50" cy="50" r="3" fill="%23ffffff"/><line x1="50" y1="50" x2="50" y2="32" stroke="%23ffffff" stroke-width="2" stroke-linecap="round"/><line x1="50" y1="50" x2="62" y2="50" stroke="%23ffffff" stroke-width="1.5" stroke-linecap="round"/><circle cx="50" cy="27" r="2" fill="%23ffffff"/><circle cx="73" cy="50" r="2" fill="%23ffffff"/><circle cx="50" cy="73" r="2" fill="%23ffffff"/><circle cx="27" cy="50" r="2" fill="%23ffffff"/></g></svg>');
+    background-size: 150px 150px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.countdown > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.countdown .section-title {
+    color: var(--white);
+}
+
+.countdown .section-title::after {
+    background: var(--white);
+}
+
+.timer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.time-unit {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 35px 30px;
+    border-radius: 15px;
+    min-width: 140px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.time-unit:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.time-value {
+    display: block;
+    font-size: 3.5rem;
+    font-weight: 700;
+    font-family: var(--font-serif);
+    line-height: 1;
+}
+
+.time-label {
+    display: block;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 12px;
+    font-weight: 300;
+}
+
+/* Gallery Section */
+.gallery {
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        /* Parang pattern - diagonal wave motif */
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g opacity="0.12"><path d="M0,50 Q25,40 50,50 T100,50" stroke="%232d6a4f" stroke-width="2" fill="none"/><path d="M0,30 Q25,20 50,30 T100,30" stroke="%232d6a4f" stroke-width="1.5" fill="none"/><path d="M0,70 Q25,60 50,70 T100,70" stroke="%232d6a4f" stroke-width="1.5" fill="none"/><circle cx="25" cy="50" r="3" fill="%232d6a4f"/><circle cx="75" cy="50" r="3" fill="%232d6a4f"/></g></svg>');
+    background-size: 200px 100px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.gallery > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+    padding-top: 100%;
+    box-shadow: 0 10px 25px rgba(45, 106, 79, 0.2);
+    transition: all 0.3s ease;
+}
+
+.gallery-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(45, 106, 79, 0.4));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+}
+
+.gallery-item:hover {
+    box-shadow: 0 15px 35px rgba(45, 106, 79, 0.3);
+    transform: translateY(-5px);
+}
+
+.gallery-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.15);
+}
+
+/* Greetings Section */
+.greetings {
+    background: var(--bg-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.greetings::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        /* Truntum pattern - small stars and dots motif */
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g opacity="0.15"><path d="M50,45 L52,48 L55,48 L52.5,50 L53.5,53 L50,51 L46.5,53 L47.5,50 L45,48 L48,48 Z" fill="%23ffffff"/><circle cx="30" cy="30" r="2" fill="%23ffffff"/><circle cx="70" cy="30" r="2" fill="%23ffffff"/><circle cx="30" cy="70" r="2" fill="%23ffffff"/><circle cx="70" cy="70" r="2" fill="%23ffffff"/><path d="M50,25 L51,27 L53,27 L51.5,28.5 L52,30 L50,29 L48,30 L48.5,28.5 L47,27 L49,27 Z" fill="%23ffffff"/><path d="M50,70 L51,72 L53,72 L51.5,73.5 L52,75 L50,74 L48,75 L48.5,73.5 L47,72 L49,72 Z" fill="%23ffffff"/></g></svg>');
+    background-size: 100px 100px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.greetings > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.greeting-form {
+    max-width: 600px;
+    margin: 0 auto 60px;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(45, 106, 79, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-family: var(--font-sans-serif);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent));
+    color: var(--white);
+    padding: 18px 50px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 8px 20px rgba(45, 106, 79, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--accent), var(--primary-color));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(45, 106, 79, 0.4);
+}
+
+/* Greetings Display */
+.greetings-display {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.greetings-subtitle {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-dark);
+}
+
+.greetings-list {
+    display: grid;
+    gap: 20px;
+}
+
+.no-greetings {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.greeting-card {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(45, 106, 79, 0.1);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease;
+}
+
+.greeting-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(45, 106, 79, 0.15);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.greeting-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.greeting-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent));
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.greeting-info {
+    flex: 1;
+}
+
+.greeting-name {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.greeting-time {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.greeting-message {
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* Greeting Popup */
+.greeting-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.greeting-popup.show {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.greeting-popup-content {
+    background: var(--white);
+    padding: 50px 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 500px;
+    margin: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.greeting-popup-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: rotate 0.6s ease;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg) scale(0);
+    }
+    to {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.greeting-popup-content h3 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.greeting-popup-content p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.greeting-popup-content .btn-primary {
+    margin: 0 auto;
+}
+
+/* Footer */
+.footer {
+    background: var(--text-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 40px 0;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Heart and love pattern */
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g opacity="0.12"><path d="M50,75 L35,60 Q30,55 30,48 Q30,40 36,34 Q42,28 50,34 Q58,28 64,34 Q70,40 70,48 Q70,55 65,60 Z" fill="%23ffffff"/><circle cx="25" cy="25" r="2" fill="%23ffffff"/><circle cx="75" cy="25" r="2" fill="%23ffffff"/><circle cx="25" cy="75" r="2" fill="%23ffffff"/><circle cx="75" cy="75" r="2" fill="%23ffffff"/></g></svg>');
+    background-size: 120px 120px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.footer > .container {
+    position: relative;
+    z-index: 2;
+}
+
+.footer-text {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.footer-hashtag {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* Music Player */
+.music-player {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+.music-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent);
+}
+
+/* Pulse animation for music button */
+.music-btn.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(45, 106, 79, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(45, 106, 79, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(45, 106, 79, 0);
+    }
+}
+
+/* Music Notification */
+.music-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(45, 106, 79, 0.4);
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.music-notification p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* Scroll Animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 30px;
+    }
+
+    .couple-names {
+        font-size: 5rem;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .photo-frame {
+        width: 200px;
+        height: 200px;
+    }
+
+    .event-card {
+        padding: 40px 30px;
+    }
+}
+
+/* Desktop and Tablet - Move hero content lower to avoid covering bride image */
+@media (min-width: 769px) {
+    .hero-content {
+        bottom: 2%;
+    }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    /* Hero Section */
+    .hero-content {
+        bottom: 10%;
+        padding: 1rem;
+    }
+
+    .couple-names {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .wedding-date {
+        font-size: 1.4rem;
+        letter-spacing: 3px;
+        margin-bottom: 2rem;
+    }
+
+    .scroll-indicator span {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .arrow-down {
+        width: 25px;
+        height: 25px;
+    }
+
+    /* Sections */
+    section {
+        padding: 60px 0;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-title::after {
+        width: 60px;
+        height: 3px;
+        margin: 20px auto;
+    }
+
+    /* Invitation Section */
+    .invitation {
+        border-radius: 20px 20px 0 0;
+    }
+
+    .invitation-text {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+        line-height: 1.8;
+    }
+
+    .couple-photos {
+        gap: 40px;
+        flex-direction: column;
+    }
+
+    .photo-frame {
+        width: 180px;
+        height: 180px;
+        border: 4px solid var(--primary-color);
+    }
+
+    .photo-card h3 {
+        font-size: 1.6rem;
+    }
+
+    .photo-card p {
+        font-size: 1rem;
+    }
+
+    .heart-divider {
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    /* Quran Verse */
+    .quran-verse {
+        padding: 60px 0;
+    }
+
+    .verse-container {
+        padding: 40px 30px;
+    }
+
+    .verse-icon {
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+    }
+
+    .verse-arabic {
+        font-size: 1.5rem;
+        line-height: 2.2;
+        margin-bottom: 25px;
+    }
+
+    .verse-translation {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .verse-reference {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    /* Event Details */
+    .events-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .event-card {
+        padding: 35px 25px;
+    }
+
+    .event-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        min-height: 3rem;
+    }
+
+    .event-icon-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .event-card h3 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .event-time {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .event-location {
+        font-size: 1.1rem;
+    }
+
+    .event-address {
+        font-size: 0.95rem;
+    }
+
+    /* Countdown */
+    .timer {
+        gap: 15px;
+    }
+
+    .time-unit {
+        min-width: 100px;
+        padding: 25px 20px;
+    }
+
+    .time-value {
+        font-size: 2.5rem;
+    }
+
+    .time-label {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    /* Greetings */
+    .greeting-form {
+        max-width: 100%;
+        padding: 30px 25px;
+    }
+
+    .greeting-avatar {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+
+    .greeting-name {
+        font-size: 1.1rem;
+    }
+
+    .greeting-popup-content {
+        padding: 40px 30px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 16px 40px;
+        font-size: 1rem;
+    }
+
+    /* Footer */
+    .footer-text {
+        font-size: 1.1rem;
+    }
+
+    .footer-hashtag {
+        font-size: 1rem;
+    }
+
+    /* Music Player */
+    .music-player {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .music-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Hero Section */
+    .hero-content {
+        bottom: 8%;
+        padding: 0.5rem;
+    }
+
+    .couple-names {
+        font-size: 2.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .wedding-date {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        margin-bottom: 1.5rem;
+    }
+
+    .scroll-indicator span {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+
+    .arrow-down {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Sections */
+    section {
+        padding: 40px 0;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-title::after {
+        width: 50px;
+        height: 2px;
+        margin: 15px auto;
+    }
+
+    /* Invitation Section */
+    .invitation {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .invitation-text {
+        font-size: 1rem;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+
+    .couple-photos {
+        gap: 30px;
+    }
+
+    .photo-frame {
+        width: 150px;
+        height: 150px;
+        border: 3px solid var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    .photo-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+    }
+
+    .photo-card p {
+        font-size: 0.9rem;
+    }
+
+    .heart-divider {
+        font-size: 2.5rem;
+    }
+
+    .ornament {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 20px;
+    }
+
+    /* Quran Verse */
+    .quran-verse {
+        padding: 50px 0;
+    }
+
+    .verse-container {
+        padding: 35px 25px;
+        border-radius: 15px;
+    }
+
+    .verse-icon {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .verse-arabic {
+        font-size: 1.3rem;
+        line-height: 2;
+        margin-bottom: 20px;
+    }
+
+    .verse-translation {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 18px;
+    }
+
+    .verse-reference {
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        margin-top: 15px;
+    }
+
+    /* Event Details */
+    .event-card {
+        padding: 30px 20px;
+    }
+
+    .event-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        min-height: 2.5rem;
+    }
+
+    .event-icon-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .event-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    .event-time {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .event-location {
+        font-size: 1rem;
+        margin-bottom: 5px;
+    }
+
+    .event-address {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Countdown */
+    .timer {
+        gap: 10px;
+    }
+
+    .time-unit {
+        min-width: 70px;
+        padding: 20px 15px;
+    }
+
+    .time-value {
+        font-size: 2rem;
+    }
+
+    .time-label {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        margin-top: 8px;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    /* Greetings */
+    .greeting-form {
+        padding: 25px 20px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .greeting-card {
+        padding: 20px;
+    }
+
+    .greeting-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .greeting-name {
+        font-size: 1rem;
+    }
+
+    .greeting-message {
+        font-size: 0.95rem;
+    }
+
+    .greeting-popup-content {
+        padding: 35px 25px;
+        margin: 15px;
+    }
+
+    .greeting-popup-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .greeting-popup-content p {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        padding: 14px 30px;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 30px 0;
+    }
+
+    .footer-text {
+        font-size: 1rem;
+    }
+
+    .footer-hashtag {
+        font-size: 0.9rem;
+    }
+
+    /* Music Player */
+    .music-player {
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .music-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile Extra Small */
+@media (max-width: 360px) {
+    .couple-names {
+        font-size: 2.3rem;
+    }
+
+    .wedding-date {
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .photo-frame {
+        width: 130px;
+        height: 130px;
+    }
+
+    .time-unit {
+        min-width: 65px;
+        padding: 15px 10px;
+    }
+
+    .time-value {
+        font-size: 1.8rem;
+    }
+
+    .event-card h3 {
+        font-size: 1.3rem;
+    }
+}
