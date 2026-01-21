@@ -297,22 +297,17 @@ function saveGreetings() {
     localStorage.setItem(storageKey, JSON.stringify(greetings));
 }
 
-// Display all greetings (including samples and user submissions)
+// Display all greetings from API
 function displayGreetings() {
     const greetingsList = document.getElementById('greetings-list');
 
-    // Merge sample greetings with user greetings
-    const allGreetings = [...sampleGreetings, ...greetings];
-
-    if (allGreetings.length === 0) {
+    if (greetings.length === 0) {
         greetingsList.innerHTML = '<p class="no-greetings">Belum ada ucapan. Jadilah yang pertama! 💝</p>';
         return;
     }
 
-    // Sort by timestamp (newest first)
-    const sortedGreetings = [...allGreetings].sort((a, b) => b.timestamp - a.timestamp);
-
-    greetingsList.innerHTML = sortedGreetings.map(greeting => `
+    // Greetings are already sorted from API (newest first)
+    greetingsList.innerHTML = greetings.map(greeting => `
         <div class="greeting-card">
             <div class="greeting-header">
                 <div class="greeting-avatar">${greeting.name.charAt(0).toUpperCase()}</div>
@@ -348,57 +343,56 @@ function formatTimeAgo(timestamp) {
     return 'Baru saja';
 }
 
-// Greeting form submission
-document.getElementById('greeting-form').addEventListener('submit', function(e) {
+// Greeting form submission - Submit to API
+document.getElementById('greeting-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const name = document.getElementById('guest-name').value.trim();
     const message = document.getElementById('guest-message').value.trim();
+    const submitButton = this.querySelector('button[type="submit"]');
 
     if (!name || !message) {
         alert('Mohon isi nama dan ucapan Anda');
         return;
     }
 
-    // Create greeting object
-    const greeting = {
-        id: Date.now(),
-        name: name,
-        message: message,
-        timestamp: Date.now()
-    };
+    // Disable submit button to prevent double submission
+    submitButton.disabled = true;
+    submitButton.textContent = 'Mengirim...';
 
-    // Add to greetings array
-    greetings.push(greeting);
+    try {
+        // Submit to API
+        const response = await fetch(`${API_BASE_URL}/api/greetings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, message })
+        });
 
-    // Save to localStorage
-    saveGreetings();
+        const data = await response.json();
 
-    // Display updated greetings
-    displayGreetings();
+        if (data.success) {
+            // Reload greetings from API to show the new one
+            await loadGreetingsFromAPI();
 
-    // Show popup
-    showGreetingPopup();
+            // Show success popup
+            showGreetingPopup();
 
-    // Reset form
-    document.getElementById('greeting-form').reset();
-
-    // You can integrate with backend API here:
-    /*
-    fetch('YOUR_API_ENDPOINT', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(greeting)
-    }).then(response => {
-        if (response.ok) {
-            console.log('Greeting saved to backend');
+            // Reset form
+            this.reset();
+        } else {
+            alert('Gagal mengirim ucapan. Silakan coba lagi.');
+            console.error('Error submitting greeting:', data.error);
         }
-    }).catch(error => {
-        console.error('Error saving greeting:', error);
-    });
-    */
+    } catch (error) {
+        console.error('Error submitting greeting:', error);
+        alert('Gagal mengirim ucapan. Silakan coba lagi.');
+    } finally {
+        // Re-enable submit button
+        submitButton.disabled = false;
+        submitButton.textContent = weddingConfig.greetings.submitButtonText || 'Kirim Ucapan';
+    }
 });
 
 // Show greeting popup
@@ -420,32 +414,52 @@ document.getElementById('greeting-popup').addEventListener('click', function(e) 
     }
 });
 
-// Initialize sample greetings (visible to all visitors)
-const sampleGreetings = [
-    {
-        id: 1704067200000,
-        name: "Keluarga Besar",
-        message: "Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Bahagia selalu! 💐",
-        timestamp: 1704067200000
-    },
-    {
-        id: 1704153600000,
-        name: "Sahabat Kampus",
-        message: "Senang sekali bisa menyaksikan momen bahagia kalian! Semoga langgeng sampai kakek nenek 👵👴❤️",
-        timestamp: 1704153600000
-    },
-    {
-        id: 1704240000000,
-        name: "Rekan Kerja",
-        message: "Barakallahu lakuma wa baraka alaikuma wa jamaa bainakuma fi khair. Selamat menempuh hidup baru! 🤲",
-        timestamp: 1704240000000
+// API Configuration for Cloudflare Workers
+const API_BASE_URL = 'https://kabar-bahagia-api.fathakbarrb.workers.dev';
+
+// Load greetings from API
+async function loadGreetingsFromAPI() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/greetings`);
+        const data = await response.json();
+
+        if (data.success) {
+            greetings = data.greetings || [];
+            displayGreetings();
+        } else {
+            console.error('Failed to load greetings:', data.error);
+            // Fallback to localStorage if API fails
+            loadGreetingsFromLocalStorage();
+        }
+    } catch (error) {
+        console.error('Error fetching greetings:', error);
+        // Fallback to localStorage if API fails
+        loadGreetingsFromLocalStorage();
     }
-];
+}
+
+// Fallback: Load from localStorage
+function loadGreetingsFromLocalStorage() {
+    const storageKey = weddingConfig.greetings.storageKey || 'wedding_greetings';
+    const stored = localStorage.getItem(storageKey);
+    if (stored) {
+        try {
+            greetings = JSON.parse(stored);
+            displayGreetings();
+        } catch (e) {
+            console.error('Error loading greetings from localStorage:', e);
+            greetings = [];
+            displayGreetings();
+        }
+    } else {
+        displayGreetings();
+    }
+}
 
 // Initialize greetings on page load
 document.addEventListener('DOMContentLoaded', () => {
     if (weddingConfig.greetings && weddingConfig.greetings.enabled) {
-        loadGreetings();
+        loadGreetingsFromAPI();
     }
 });
 
