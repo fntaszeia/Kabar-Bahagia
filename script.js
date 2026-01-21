@@ -646,6 +646,30 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Image Lazy Loading with Skeleton Removal
+document.addEventListener('DOMContentLoaded', () => {
+    // Handle all images with skeleton loaders
+    const skeletonImages = document.querySelectorAll('.skeleton-loader img');
+
+    skeletonImages.forEach(img => {
+        // If image is already cached/loaded
+        if (img.complete) {
+            img.parentElement.classList.add('loaded');
+        } else {
+            // Listen for load event
+            img.addEventListener('load', () => {
+                img.parentElement.classList.add('loaded');
+            });
+
+            // Handle error case
+            img.addEventListener('error', () => {
+                img.parentElement.classList.add('loaded');
+                console.warn('Image failed to load:', img.src);
+            });
+        }
+    });
+});
+
 // Console message
 console.log('%c💍 Wedding Invitation Template 💍', 'font-size: 20px; color: #d4af37; font-weight: bold;');
 console.log('%cWishing you a lifetime of love and happiness!', 'font-size: 14px; color: #666;');

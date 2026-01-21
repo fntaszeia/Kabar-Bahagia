@@ -690,6 +690,79 @@ section {
     transform: scale(1.15);
 }
 
+/* Skeleton Loader */
+.skeleton-loader {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+.skeleton-loader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    z-index: 1;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Remove skeleton when image is loaded */
+.skeleton-loader.loaded {
+    background: none;
+    animation: none;
+}
+
+.skeleton-loader.loaded::before {
+    display: none;
+}
+
+/* Couple photos skeleton styling */
+.photo-frame.skeleton-loader {
+    background: linear-gradient(90deg, rgba(45, 106, 79, 0.08) 25%, rgba(45, 106, 79, 0.15) 50%, rgba(45, 106, 79, 0.08) 75%);
+    background-size: 200% 100%;
+}
+
+/* Gallery skeleton styling */
+.gallery-item.skeleton-loader {
+    background: linear-gradient(90deg, rgba(45, 106, 79, 0.08) 25%, rgba(45, 106, 79, 0.15) 50%, rgba(45, 106, 79, 0.08) 75%);
+    background-size: 200% 100%;
+}
+
+/* Make sure images are visible over skeleton */
+.skeleton-loader img {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.skeleton-loader.loaded img {
+    opacity: 1;
+}
+
 /* Greetings Section */
 .greetings {
     background: var(--bg-light);
