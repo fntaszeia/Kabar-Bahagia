@@ -297,17 +297,20 @@ function saveGreetings() {
     localStorage.setItem(storageKey, JSON.stringify(greetings));
 }
 
-// Display all greetings
+// Display all greetings (including samples and user submissions)
 function displayGreetings() {
     const greetingsList = document.getElementById('greetings-list');
 
-    if (greetings.length === 0) {
+    // Merge sample greetings with user greetings
+    const allGreetings = [...sampleGreetings, ...greetings];
+
+    if (allGreetings.length === 0) {
         greetingsList.innerHTML = '<p class="no-greetings">Belum ada ucapan. Jadilah yang pertama! 💝</p>';
         return;
     }
 
     // Sort by timestamp (newest first)
-    const sortedGreetings = [...greetings].sort((a, b) => b.timestamp - a.timestamp);
+    const sortedGreetings = [...allGreetings].sort((a, b) => b.timestamp - a.timestamp);
 
     greetingsList.innerHTML = sortedGreetings.map(greeting => `
         <div class="greeting-card">
@@ -416,6 +419,28 @@ document.getElementById('greeting-popup').addEventListener('click', function(e) 
         closeGreetingPopup();
     }
 });
+
+// Initialize sample greetings (visible to all visitors)
+const sampleGreetings = [
+    {
+        id: 1704067200000,
+        name: "Keluarga Besar",
+        message: "Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Bahagia selalu! 💐",
+        timestamp: 1704067200000
+    },
+    {
+        id: 1704153600000,
+        name: "Sahabat Kampus",
+        message: "Senang sekali bisa menyaksikan momen bahagia kalian! Semoga langgeng sampai kakek nenek 👵👴❤️",
+        timestamp: 1704153600000
+    },
+    {
+        id: 1704240000000,
+        name: "Rekan Kerja",
+        message: "Barakallahu lakuma wa baraka alaikuma wa jamaa bainakuma fi khair. Selamat menempuh hidup baru! 🤲",
+        timestamp: 1704240000000
+    }
+];
 
 // Initialize greetings on page load
 document.addEventListener('DOMContentLoaded', () => {
