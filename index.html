@@ -28,6 +28,11 @@
     <link rel="preload" href="config.js" as="script">
     <link rel="preload" href="script.js" as="script">
     <link rel="preload" href="images/hero-bg.jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="style.css" as="style">
+
+    <!-- Prefetch API endpoint for faster greetings load -->
+    <link rel="dns-prefetch" href="https://kabar-bahagia-api.fntasze.workers.dev">
+    <link rel="preconnect" href="https://kabar-bahagia-api.fntasze.workers.dev" crossorigin>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -59,7 +64,7 @@
             <div class="couple-photos animate-on-scroll">
                 <div class="photo-card">
                     <div class="photo-frame skeleton-loader">
-                        <img src="images/groom.jpg" alt="Groom" class="couple-photo" loading="lazy">
+                        <img src="images/groom.jpg" alt="Groom" class="couple-photo" loading="lazy" decoding="async">
                     </div>
                     <h3>John Alexander</h3>
                     <p>Putra dari Mr. & Mrs. Alexander</p>
@@ -67,7 +72,7 @@
                 <div class="heart-divider">&</div>
                 <div class="photo-card">
                     <div class="photo-frame skeleton-loader">
-                        <img src="images/bride.jpg" alt="Bride" class="couple-photo" loading="lazy">
+                        <img src="images/bride.jpg" alt="Bride" class="couple-photo" loading="lazy" decoding="async">
                     </div>
                     <h3>Jane Elizabeth</h3>
                     <p>Putri dari Mr. & Mrs. Elizabeth</p>
@@ -146,16 +151,16 @@
             <h2 class="section-title animate-on-scroll">Our Story</h2>
             <div class="gallery-grid">
                 <div class="gallery-item animate-on-scroll skeleton-loader">
-                    <img src="images/photo1.jpg" alt="Our Story 1" loading="lazy">
+                    <img src="images/photo1.jpg" alt="Our Story 1" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item animate-on-scroll skeleton-loader">
-                    <img src="images/photo2.jpg" alt="Our Story 2" loading="lazy">
+                    <img src="images/photo2.jpg" alt="Our Story 2" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item animate-on-scroll skeleton-loader">
-                    <img src="images/photo3.jpg" alt="Our Story 3" loading="lazy">
+                    <img src="images/photo3.jpg" alt="Our Story 3" loading="lazy" decoding="async">
                 </div>
                 <div class="gallery-item animate-on-scroll skeleton-loader">
-                    <img src="images/photo4.jpg" alt="Our Story 4" loading="lazy">
+                    <img src="images/photo4.jpg" alt="Our Story 4" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
@@ -212,8 +217,8 @@
         </button>
     </div>
 
-    <!-- Load configuration first, then main script -->
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <!-- Load configuration first, then main script - defer for better performance -->
+    <script src="config.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

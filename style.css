@@ -5,6 +5,23 @@
     box-sizing: border-box;
 }
 
+/* Smooth scrolling for entire page */
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Optimize scrolling performance */
+body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+    /* Enable hardware acceleration for smooth animations */
+    will-change: scroll-position;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
     --primary-color: #d4af37;
     --secondary-color: #8b7355;
@@ -92,6 +109,11 @@ body {
     text-align: center;
     overflow: hidden;
     z-index: 1;
+    /* Hardware acceleration for smooth parallax */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 .hero-overlay {
@@ -617,6 +639,8 @@ section {
     background: var(--white);
     position: relative;
     overflow: hidden;
+    /* CSS containment for better rendering performance */
+    contain: layout style paint;
 }
 
 .gallery::before {
@@ -791,6 +815,10 @@ section {
     background: var(--bg-light);
     position: relative;
     overflow: hidden;
+    /* CSS containment and content-visibility for performance */
+    contain: layout style paint;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
 }
 
 .greetings::before {
@@ -1198,16 +1226,21 @@ section {
     text-align: center;
 }
 
-/* Scroll Animations */
+/* Scroll Animations - Optimized with hardware acceleration */
 .animate-on-scroll {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
     transition: opacity 0.6s ease, transform 0.6s ease;
+    /* Hardware acceleration hints */
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 .animate-on-scroll.animated {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+    /* Remove will-change after animation */
+    will-change: auto;
 }
 
 /* Responsive Design */

@@ -8,13 +8,13 @@ if (document.readyState === 'loading') {
     populateContent();
 }
 
-// Hide loading screen when everything is ready
-window.addEventListener('load', () => {
+// Hide loading screen when DOM is ready (faster than waiting for all resources)
+document.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById('loading-screen');
-    // Minimal delay for smooth transition - faster loading
+    // Hide immediately when DOM is ready for faster perceived load
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
-    }, 100);
+    }, 50);
 });
 
 // SVG Icons for events
@@ -253,7 +253,7 @@ function initCountdown() {
 // Initialize countdown on page load
 initCountdown();
 
-// Scroll Animation Observer
+// Optimized Scroll Animation Observer with unobserve
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -263,6 +263,8 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animated');
+            // Unobserve after animating to improve performance
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -270,7 +272,11 @@ const observer = new IntersectionObserver((entries) => {
 // Observe all elements with animate-on-scroll class
 document.addEventListener('DOMContentLoaded', () => {
     const animateElements = document.querySelectorAll('.animate-on-scroll');
-    animateElements.forEach(el => observer.observe(el));
+    animateElements.forEach(el => {
+        // Add will-change for smoother animations
+        el.style.willChange = 'opacity, transform';
+        observer.observe(el);
+    });
 });
 
 // Greetings System
@@ -614,14 +620,30 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
+// Optimized parallax effect for hero section with requestAnimationFrame
+let ticking = false;
+let lastScrollY = 0;
+
+function updateParallax() {
+    const scrolled = lastScrollY;
     const hero = document.querySelector('.hero');
     if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        // Use transform3d for hardware acceleration
+        hero.style.transform = `translate3d(0, ${scrolled * 0.5}px, 0)`;
     }
-});
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    lastScrollY = window.pageYOffset;
+
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            updateParallax();
+        });
+        ticking = true;
+    }
+}, { passive: true });
 
 // Prevent right-click on images (optional - to protect photos)
 document.addEventListener('contextmenu', (e) => {
