@@ -8,17 +8,26 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Wedding Invitation - John & Jane</title>
 
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- Optimized font loading with async loading for faster render -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Preload critical resources -->
     <link rel="preload" href="config.js" as="script">
     <link rel="preload" href="script.js" as="script">
-    <link rel="preload" href="images/hero-bg.jpg" as="image">
+    <link rel="preload" href="images/hero-bg.jpg" as="image" fetchpriority="high">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -50,7 +59,7 @@
             <div class="couple-photos animate-on-scroll">
                 <div class="photo-card">
                     <div class="photo-frame">
-                        <img src="images/groom.jpg" alt="Groom" class="couple-photo">
+                        <img src="images/groom.jpg" alt="Groom" class="couple-photo" loading="lazy">
                     </div>
                     <h3>John Alexander</h3>
                     <p>Putra dari Mr. & Mrs. Alexander</p>
@@ -58,7 +67,7 @@
                 <div class="heart-divider">&</div>
                 <div class="photo-card">
                     <div class="photo-frame">
-                        <img src="images/bride.jpg" alt="Bride" class="couple-photo">
+                        <img src="images/bride.jpg" alt="Bride" class="couple-photo" loading="lazy">
                     </div>
                     <h3>Jane Elizabeth</h3>
                     <p>Putri dari Mr. & Mrs. Elizabeth</p>
@@ -137,16 +146,16 @@
             <h2 class="section-title animate-on-scroll">Our Story</h2>
             <div class="gallery-grid">
                 <div class="gallery-item animate-on-scroll">
-                    <img src="images/photo1.jpg" alt="Our Story 1">
+                    <img src="images/photo1.jpg" alt="Our Story 1" loading="lazy">
                 </div>
                 <div class="gallery-item animate-on-scroll">
-                    <img src="images/photo2.jpg" alt="Our Story 2">
+                    <img src="images/photo2.jpg" alt="Our Story 2" loading="lazy">
                 </div>
                 <div class="gallery-item animate-on-scroll">
-                    <img src="images/photo3.jpg" alt="Our Story 3">
+                    <img src="images/photo3.jpg" alt="Our Story 3" loading="lazy">
                 </div>
                 <div class="gallery-item animate-on-scroll">
-                    <img src="images/photo4.jpg" alt="Our Story 4">
+                    <img src="images/photo4.jpg" alt="Our Story 4" loading="lazy">
                 </div>
             </div>
         </div>

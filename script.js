@@ -11,10 +11,10 @@ if (document.readyState === 'loading') {
 // Hide loading screen when everything is ready
 window.addEventListener('load', () => {
     const loadingScreen = document.getElementById('loading-screen');
-    // Reduce delay for faster perceived loading
+    // Minimal delay for smooth transition - faster loading
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
-    }, 300);
+    }, 100);
 });
 
 // SVG Icons for events

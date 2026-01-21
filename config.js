@@ -24,7 +24,7 @@ const weddingConfig = {
     events: {
         ceremony: {
             name: "Akad Nikah",
-            time: "07:30 WIB",
+            time: "08:00 WIB",
             venue: "Joglo House Puspitek",
             address: "Jl. Raya Puspitek, Buaran, Kec. Serpong, Kota Tangerang Selatan, Banten 15310",
             // You can use either:
