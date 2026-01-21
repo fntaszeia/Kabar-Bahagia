@@ -415,7 +415,7 @@ document.getElementById('greeting-popup').addEventListener('click', function(e) 
 });
 
 // API Configuration for Cloudflare Workers
-const API_BASE_URL = 'https://kabar-bahagia-api.fathakbarrb.workers.dev';
+const API_BASE_URL = 'https://kabar-bahagia-api.fntasze.workers.dev';
 
 // Load greetings from API
 async function loadGreetingsFromAPI() {

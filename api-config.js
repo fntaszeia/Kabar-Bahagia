@@ -4,7 +4,7 @@
 const API_CONFIG = {
     // Replace with your actual worker URL after deployment
     // Format: https://kabar-bahagia-api.<your-subdomain>.workers.dev
-    baseURL: 'https://kabar-bahagia-api.fathakbarrb.workers.dev',
+    baseURL: 'https://kabar-bahagia-api.fntasze.workers.dev',
     endpoints: {
         greetings: '/api/greetings'
     }
