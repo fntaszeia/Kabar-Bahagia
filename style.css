@@ -280,7 +280,7 @@ section {
 .couple-photos {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 80px;
     flex-wrap: wrap;
     margin: 60px 0;
@@ -289,6 +289,10 @@ section {
 .photo-card {
     text-align: center;
     transition: transform 0.3s ease;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .photo-card:hover {
@@ -329,12 +333,16 @@ section {
     margin-bottom: 12px;
     font-weight: 700;
     color: var(--text-dark);
+    width: 100%;
 }
 
 .photo-card p {
     color: var(--text-light);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 300;
+    line-height: 1.6;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 .heart-divider {

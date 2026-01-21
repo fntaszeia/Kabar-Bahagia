@@ -1,12 +1,20 @@
-// Loading Screen
+// Loading Screen - Optimized
+// Populate content as soon as config is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        populateContent();
+    });
+} else {
+    populateContent();
+}
+
+// Hide loading screen when everything is ready
 window.addEventListener('load', () => {
     const loadingScreen = document.getElementById('loading-screen');
+    // Reduce delay for faster perceived loading
     setTimeout(() => {
         loadingScreen.classList.add('hidden');
-    }, 1000);
-
-    // Populate content from config after loading
-    populateContent();
+    }, 300);
 });
 
 // SVG Icons for events
