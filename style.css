@@ -765,6 +765,27 @@ section {
     opacity: 1;
 }
 
+/* Fix for gallery items - ensure images are positioned correctly */
+.gallery-item.skeleton-loader img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Fix for photo frames - ensure images are positioned correctly */
+.photo-frame.skeleton-loader img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 /* Greetings Section */
 .greetings {
     background: var(--bg-light);
