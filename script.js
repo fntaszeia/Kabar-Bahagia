@@ -475,7 +475,7 @@ function tryAutoplay() {
 function setupInteractionListeners() {
     // Try to play on first user interaction
     const enableAudioOnInteraction = () => {
-        if (!isPlaying && weddingConfig.music.autoplay) {
+        if (!isPlaying) {
             audio.play().then(() => {
                 isPlaying = true;
                 document.getElementById('music-icon').textContent = '🔊';
@@ -492,19 +492,27 @@ function setupInteractionListeners() {
     // Store reference for later removal
     window.enableAudioOnInteraction = enableAudioOnInteraction;
 
-    // Add listeners for various user interactions
-    document.addEventListener('click', enableAudioOnInteraction, { once: false });
-    document.addEventListener('touchstart', enableAudioOnInteraction, { once: false });
-    document.addEventListener('scroll', enableAudioOnInteraction, { once: false });
+    // Add listeners for various user interactions (more comprehensive)
+    document.addEventListener('click', enableAudioOnInteraction, { once: false, capture: true });
+    document.addEventListener('touchstart', enableAudioOnInteraction, { once: false, capture: true });
+    document.addEventListener('touchend', enableAudioOnInteraction, { once: false, capture: true });
+    document.addEventListener('scroll', enableAudioOnInteraction, { once: false, passive: true });
+    document.addEventListener('wheel', enableAudioOnInteraction, { once: false, passive: true });
     document.addEventListener('keydown', enableAudioOnInteraction, { once: false });
+    document.addEventListener('mousemove', enableAudioOnInteraction, { once: false, passive: true });
+    document.addEventListener('touchmove', enableAudioOnInteraction, { once: false, passive: true });
 }
 
 function removeInteractionListeners() {
     if (window.enableAudioOnInteraction) {
-        document.removeEventListener('click', window.enableAudioOnInteraction);
-        document.removeEventListener('touchstart', window.enableAudioOnInteraction);
+        document.removeEventListener('click', window.enableAudioOnInteraction, { capture: true });
+        document.removeEventListener('touchstart', window.enableAudioOnInteraction, { capture: true });
+        document.removeEventListener('touchend', window.enableAudioOnInteraction, { capture: true });
         document.removeEventListener('scroll', window.enableAudioOnInteraction);
+        document.removeEventListener('wheel', window.enableAudioOnInteraction);
         document.removeEventListener('keydown', window.enableAudioOnInteraction);
+        document.removeEventListener('mousemove', window.enableAudioOnInteraction);
+        document.removeEventListener('touchmove', window.enableAudioOnInteraction);
     }
 }
 

@@ -84,6 +84,7 @@ body {
     background-image: url('images/hero-bg.jpg');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     background-blend-mode: overlay;
     display: flex;
     align-items: center;
