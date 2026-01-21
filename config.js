@@ -10,7 +10,7 @@ const weddingConfig = {
         brideName: "Muftikasari Ayu Raras Asih",
         brideShortName: "Raras",  // Short name for hero section
         brideParents: "Bapak Subaryanto (Alm.) & Ibu Sukemiyati",
-        hashtag: "#FathRaras2026"
+        hashtag: "Design by Ourselves"
     },
 
     // Wedding Date and Time
