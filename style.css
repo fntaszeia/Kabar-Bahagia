@@ -749,6 +749,8 @@ section {
 .gallery-item.skeleton-loader {
     background: linear-gradient(90deg, rgba(45, 106, 79, 0.08) 25%, rgba(45, 106, 79, 0.15) 50%, rgba(45, 106, 79, 0.08) 75%);
     background-size: 200% 100%;
+    padding-top: 100%; /* Maintain 1:1 square aspect ratio */
+    aspect-ratio: 1 / 1; /* Modern browsers: force square */
 }
 
 /* Make sure images are visible over skeleton */
