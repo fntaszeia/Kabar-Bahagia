@@ -6,10 +6,10 @@ const weddingConfig = {
     couple: {
         groomName: "Fath Akbar Rahmad Baskara",
         groomShortName: "Fath",  // Short name for hero section
-        groomParents: "Wardoyo Rahmad Basuki & Sri Rahayu Purwaningsih",
+        groomParents: "Bapak Wardoyo Rahmad Basuki & Ibu Sri Rahayu Purwaningsih",
         brideName: "Muftikasari Ayu Raras Asih",
         brideShortName: "Raras",  // Short name for hero section
-        brideParents: "Alm. Subaryanto & Sukemiyati",
+        brideParents: "Bapak Subaryanto (Alm.) & Ibu Sukemiyati",
         hashtag: "#FathRaras2026"
     },
 
