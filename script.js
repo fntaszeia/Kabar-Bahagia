@@ -1,21 +1,59 @@
-// Loading Screen - Optimized
-// Populate content as soon as config is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        populateContent();
-    });
-} else {
+// Centralized Website Initialization
+// This ensures all initialization happens in correct order, regardless of when scripts load
+
+function initializeWebsite() {
+    // 1. Populate content first
     populateContent();
+
+    // 2. Hide loading screen after content is ready
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 100);
+    }
+
+    // 3. Initialize scroll animations
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach(el => {
+        el.style.willChange = 'opacity, transform';
+        observer.observe(el);
+    });
+
+    // 4. Initialize greetings
+    if (weddingConfig.greetings && weddingConfig.greetings.enabled) {
+        loadGreetingsFromAPI();
+    }
+
+    // 5. Initialize music
+    if (weddingConfig.music && weddingConfig.music.enabled) {
+        initializeMusic();
+    }
+
+    // 6. Initialize skeleton loaders
+    const skeletonImages = document.querySelectorAll('.skeleton-loader img');
+    skeletonImages.forEach(img => {
+        if (img.complete) {
+            img.parentElement.classList.add('loaded');
+        } else {
+            img.addEventListener('load', () => {
+                img.parentElement.classList.add('loaded');
+            });
+            img.addEventListener('error', () => {
+                img.parentElement.classList.add('loaded');
+                console.warn('Image failed to load:', img.src);
+            });
+        }
+    });
 }
 
-// Hide loading screen when DOM is ready (faster than waiting for all resources)
-document.addEventListener('DOMContentLoaded', () => {
-    const loadingScreen = document.getElementById('loading-screen');
-    // Hide immediately when DOM is ready for faster perceived load
-    setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-    }, 50);
-});
+// Run initialization when ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeWebsite);
+} else {
+    // DOM already loaded (scripts at end of body), run immediately
+    initializeWebsite();
+}
 
 // SVG Icons for events
 const eventSVGIcons = {
@@ -269,15 +307,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all elements with animate-on-scroll class
-document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.animate-on-scroll');
-    animateElements.forEach(el => {
-        // Add will-change for smoother animations
-        el.style.willChange = 'opacity, transform';
-        observer.observe(el);
-    });
-});
+// Note: Scroll animation initialization moved to initializeWebsite() function
 
 // Greetings System
 let greetings = [];
@@ -462,12 +492,7 @@ function loadGreetingsFromLocalStorage() {
     }
 }
 
-// Initialize greetings on page load
-document.addEventListener('DOMContentLoaded', () => {
-    if (weddingConfig.greetings && weddingConfig.greetings.enabled) {
-        loadGreetingsFromAPI();
-    }
-});
+// Note: Greetings initialization moved to initializeWebsite() function
 
 // Map Function
 function openMap() {
@@ -480,12 +505,7 @@ let isPlaying = false;
 let audio = null;
 let audioInitialized = false;
 
-// Initialize audio on page load
-window.addEventListener('DOMContentLoaded', () => {
-    if (weddingConfig.music.enabled) {
-        initializeMusic();
-    }
-});
+// Note: Music initialization moved to initializeWebsite() function
 
 function initializeMusic() {
     if (audioInitialized) return;
@@ -668,29 +688,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Image Lazy Loading with Skeleton Removal
-document.addEventListener('DOMContentLoaded', () => {
-    // Handle all images with skeleton loaders
-    const skeletonImages = document.querySelectorAll('.skeleton-loader img');
-
-    skeletonImages.forEach(img => {
-        // If image is already cached/loaded
-        if (img.complete) {
-            img.parentElement.classList.add('loaded');
-        } else {
-            // Listen for load event
-            img.addEventListener('load', () => {
-                img.parentElement.classList.add('loaded');
-            });
-
-            // Handle error case
-            img.addEventListener('error', () => {
-                img.parentElement.classList.add('loaded');
-                console.warn('Image failed to load:', img.src);
-            });
-        }
-    });
-});
+// Note: Skeleton loader initialization moved to initializeWebsite() function
 
 // Console message
 console.log('%c💍 Wedding Invitation Template 💍', 'font-size: 20px; color: #d4af37; font-weight: bold;');
