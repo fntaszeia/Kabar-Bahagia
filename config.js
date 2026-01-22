@@ -17,7 +17,7 @@ const weddingConfig = {
     wedding: {
         date: "Februari 7, 2026",
         // Format: YYYY-MM-DDTHH:MM:SS
-        countdownDate: "2026-02-07T8:00:00"
+        countdownDate: "2026-02-07T08:00:00"
     },
 
     // Event Details
