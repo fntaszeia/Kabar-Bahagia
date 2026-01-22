@@ -149,7 +149,11 @@ function populateContent() {
     const config = weddingConfig;
 
     // Update page title
-    document.title = `Wedding Invitation - ${config.couple.groomShortName} & ${config.couple.brideShortName}`;
+    const coupleNames = `${config.couple.groomShortName} & ${config.couple.brideShortName}`;
+    document.title = `Wedding Invitation - ${coupleNames}`;
+
+    // Update Open Graph meta tags for social media sharing
+    updateMetaTags(coupleNames, config.wedding.date);
 
     // Update hero section
     document.querySelector('.couple-names').textContent =
@@ -257,6 +261,44 @@ function applyCustomOrnament(imagePath) {
     ornaments.forEach(ornament => {
         ornament.style.backgroundImage = `url('${imagePath}')`;
     });
+}
+
+// Update social media meta tags
+function updateMetaTags(coupleNames, weddingDate) {
+    const baseUrl = window.location.origin;
+    const title = `Wedding Invitation - ${coupleNames}`;
+    const description = `You are cordially invited to celebrate our wedding on ${weddingDate}. Join us on our special day!`;
+    const imageUrl = `${baseUrl}/images/hero-bg.jpg`;
+
+    // Update or create meta tags
+    setMetaTag('og:title', title);
+    setMetaTag('og:description', description);
+    setMetaTag('og:image', imageUrl);
+    setMetaTag('og:url', baseUrl);
+    setMetaTag('twitter:title', title);
+    setMetaTag('twitter:description', description);
+    setMetaTag('twitter:image', imageUrl);
+}
+
+// Helper to set meta tag value
+function setMetaTag(property, content) {
+    let tag = document.querySelector(`meta[property="${property}"]`);
+    if (!tag) {
+        tag = document.querySelector(`meta[name="${property}"]`);
+    }
+    if (tag) {
+        tag.setAttribute('content', content);
+    } else {
+        // Create new meta tag if it doesn't exist
+        const newTag = document.createElement('meta');
+        if (property.startsWith('og:') || property === 'twitter:card') {
+            newTag.setAttribute('property', property);
+        } else {
+            newTag.setAttribute('name', property);
+        }
+        newTag.setAttribute('content', content);
+        document.head.appendChild(newTag);
+    }
 }
 
 // Countdown Timer
